@@ -5,7 +5,7 @@ import photoPerfil from '../assets/images/bobesponja.png'
 function Header() {
     return (
         <Head>
-            <h1>tela habits</h1>
+            <h1>TrackIt</h1>
             <img src={photoPerfil} alt='photoPerfil' />
         </Head>
     );

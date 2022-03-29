@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import Logo from '../assets/images/logo.png'
+import Logo from '../assets/images/logo-trackit.png'
+import Loading from './Loading';
 
 import styled from 'styled-components';
 
 function Login() {
 
-    //Declarações
     const [infosLogin, setInfosLogin] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const inputsLogin = handleInputsLogin();
 
     /*
@@ -24,6 +25,8 @@ function Login() {
     promise.then((response) => {
         const { data } = response;
         setInfosLogin(data);
+        setIsLoading(false);
+        navigate('/hoje');
     });
 
     promise.catch(error => {
@@ -31,35 +34,60 @@ function Login() {
     });
     */
 
-    //post
     function handleLogin(e) {
         e.preventDefault();
     }
 
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 2000)
+    });
+
+
     //Renderiza os inputs
     function handleInputsLogin() {
         return (
-            <form onSubmit={handleLogin}>
-                <input
-                    type='email'
-                    placeholder='email'
-                    name='email'
-                    value={infosLogin.email}
-                    onChange={e => setInfosLogin({ ...infosLogin, email: e.target.value })}
-                    required
-                />
-                <input
-                    type='text'
-                    placeholder='senha'
-                    name='password'
-                    value={infosLogin.senha}
-                    onChange={e => setInfosLogin({ ...infosLogin, password: e.target.value })}
-                    required
-                />
-                <Link to='/habitos'>
-                    <button type='submit'>Entrar</button>
-                </Link>
-            </form>
+            isLoading === true ?
+                <form onSubmit={handleLogin} disabled>
+                    <input
+                        type='email'
+                        placeholder='email'
+                        name='email'
+                        value={infosLogin.email}
+                        onChange={e => setInfosLogin({ ...infosLogin, email: e.target.value })}
+                    />
+                    <input
+                        type='text'
+                        placeholder='senha'
+                        name='password'
+                        value={infosLogin.senha}
+                        onChange={e => setInfosLogin({ ...infosLogin, password: e.target.value })}
+                    />
+                    <button disabled><Loading /></button>
+                </form>
+                :
+                <form onSubmit={handleLogin}>
+                    <input
+                        type='email'
+                        placeholder='email'
+                        name='email'
+                        value={infosLogin.email}
+                        onChange={e => setInfosLogin({ ...infosLogin, email: e.target.value })}
+                        required
+                    />
+                    <input
+                        type='text'
+                        placeholder='senha'
+                        name='password'
+                        value={infosLogin.senha}
+                        onChange={e => setInfosLogin({ ...infosLogin, password: e.target.value })}
+                        required
+                    />
+                    <Link to='/habitos'>
+                        <button type='submit'>Entrar</button>
+                    </Link>
+                </form>
         );
     }
 
@@ -67,6 +95,7 @@ function Login() {
         <ContainerContent>
             <ContainerLogo>
                 <img src={Logo} alt='logo' />
+                <h1>TrackIt</h1>
             </ContainerLogo>
 
             <ContainerInputs>
@@ -95,8 +124,18 @@ const ContainerLogo = styled.div`
     img {
         width: 180px;
         height: 178.38px;
-        margin-bottom: 33px;
         margin-top: 68px;
+    }
+
+    h1 {
+        font-family: 'Playball';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 68.982px;
+        line-height: 86px;
+        text-align: center;
+        color: #126BA5;
+        margin-bottom: 33px;
     }
 `;
 

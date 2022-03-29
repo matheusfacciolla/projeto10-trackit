@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import Logo from '../assets/images/logo.png';
+import Logo from '../assets/images/logo-trackit.png';
+import Loading from './Loading';
 
 import styled from 'styled-components';
 
 function Register() {
 
-    //Declarações
     const [infosRegister, setInfosRegister] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
     const inputsRegister = handleInputsRegister();
 
     // const ObjRegister = {
@@ -25,6 +26,8 @@ function Register() {
     //promise.then((response) => {
     //     const { data } = response;
     //     setInfosRegister(data);
+    //     setIsLoading(false);
+    //     navigate('/');
     // });
 
     // promise.catch(error => {
@@ -36,46 +39,85 @@ function Register() {
         e.preventDefault();
     }
 
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 2000)
+    });
+
     //Renderiza os inputs
     function handleInputsRegister() {
         return (
-            <form onSubmit={handleRegister}>
-                <input
-                    type='email'
-                    placeholder='email'
-                    name='email'
-                    value={infosRegister.email}
-                    onChange={e => setInfosRegister({ ...infosRegister, email: e.target.value })}
-                    required
-                />
-                <input
-                    type='text'
-                    placeholder='senha'
-                    name='password'
-                    value={infosRegister.password}
-                    onChange={e => setInfosRegister({ ...infosRegister, password: e.target.value })}
-                    required
-                />
-                <input
-                    type='text'
-                    placeholder='nome'
-                    name='name'
-                    value={infosRegister.name}
-                    onChange={e => setInfosRegister({ ...infosRegister, name: e.target.value })}
-                    required
-                />
-                <input
-                    type='text'
-                    placeholder='foto'
-                    name='image'
-                    value={infosRegister.image}
-                    onChange={e => setInfosRegister({ ...infosRegister, image: e.target.value })}
-                    required
-                />
-                <div>
-                    <button type='submit'>Cadastrar</button>
-                </div>
-            </form>
+            isLoading === true ?
+                <form onSubmit={handleRegister}>
+                    <input
+                        type='email'
+                        placeholder='email'
+                        name='email'
+                        value={infosRegister.email}
+                        onChange={e => setInfosRegister({ ...infosRegister, email: e.target.value })}
+                    />
+                    <input
+                        type='text'
+                        placeholder='senha'
+                        name='password'
+                        value={infosRegister.password}
+                        onChange={e => setInfosRegister({ ...infosRegister, password: e.target.value })}
+                    />
+                    <input
+                        type='text'
+                        placeholder='nome'
+                        name='name'
+                        value={infosRegister.name}
+                    />
+                    <input
+                        type='text'
+                        placeholder='foto'
+                        name='image'
+                        value={infosRegister.image}
+                    />
+                    <div>
+                        <button disabled><Loading /></button>
+                    </div>
+                </form>
+                :
+                <form onSubmit={handleRegister}>
+                    <input
+                        type='email'
+                        placeholder='email'
+                        name='email'
+                        value={infosRegister.email}
+                        onChange={e => setInfosRegister({ ...infosRegister, email: e.target.value })}
+                        required
+                    />
+                    <input
+                        type='text'
+                        placeholder='senha'
+                        name='password'
+                        value={infosRegister.password}
+                        onChange={e => setInfosRegister({ ...infosRegister, password: e.target.value })}
+                        required
+                    />
+                    <input
+                        type='text'
+                        placeholder='nome'
+                        name='name'
+                        value={infosRegister.name}
+                        onChange={e => setInfosRegister({ ...infosRegister, name: e.target.value })}
+                        required
+                    />
+                    <input
+                        type='text'
+                        placeholder='foto'
+                        name='image'
+                        value={infosRegister.image}
+                        onChange={e => setInfosRegister({ ...infosRegister, image: e.target.value })}
+                        required
+                    />
+                    <div>
+                        <button type='submit'>Cadastrar</button>
+                    </div>
+                </form>
         );
     }
 
@@ -83,6 +125,7 @@ function Register() {
         <ContainerContent>
             <ContainerLogo>
                 <img src={Logo} alt='logo' />
+                <h1>TrackIt</h1>
             </ContainerLogo>
 
             <ContainerInputs>
@@ -111,8 +154,18 @@ const ContainerLogo = styled.div`
     img {
         width: 180px;
         height: 178.38px;
-        margin-bottom: 33px;
         margin-top: 68px;
+    }
+
+    h1 {
+        font-family: 'Playball';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 68.982px;
+        line-height: 86px;
+        text-align: center;
+        color: #126BA5;
+        margin-bottom: 33px;
     }
 `;
 
