@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
 
 import Logo from '../assets/images/logo-trackit.png';
 import Loading from './Loading';
@@ -8,44 +9,43 @@ import styled from 'styled-components';
 
 function Register() {
 
-    const [infosRegister, setInfosRegister] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [infosRegister, setInfosRegister] = useState({ email: "", name: "", image: "", password: "" });
+    const [isLoading, setIsLoading] = useState(false);
+
     const inputsRegister = handleInputsRegister();
+    const navigate = useNavigate();
 
-    // const ObjRegister = {
-    //    email: infosRegister.email,
-    //     name: infosRegister.name,
-    //     image: infosRegister.image,
-    //     password: infosRegister.password
-    // }
-
-    //const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
-
-    // const promise = axios.post(URL, ObjRegister);
-
-    //promise.then((response) => {
-    //     const { data } = response;
-    //     setInfosRegister(data);
-    //     setIsLoading(false);
-    //     navigate('/');
-    // });
-
-    // promise.catch(error => {
-    //     alert("Deu algum erro...");
-    // });
-
-    //post
-    function handleRegister(e) {
-        e.preventDefault();
+    const ObjRegister = {
+        email: infosRegister.email,
+        name: infosRegister.name,
+        image: infosRegister.image,
+        password: infosRegister.password
     }
 
-    useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 2000)
-    });
+    const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up';
 
-    //Renderiza os inputs
+    function handleRegister(e) {
+        e.preventDefault();
+        setIsLoading(true);
+        console.log("obj", ObjRegister)
+
+        const promise = axios.post(URL, ObjRegister);
+
+        promise.then((response) => {
+            setInfosRegister(response.data);
+            console.log("obj", ObjRegister)
+            setIsLoading(false);
+            navigate('/');
+        });
+
+        promise.catch(error => {
+            alert("Deu algum erro...");
+            console.log("obj", ObjRegister)
+            console.log(error);
+            setIsLoading(false);
+        });
+    }
+
     function handleInputsRegister() {
         return (
             isLoading === true ?
@@ -53,31 +53,29 @@ function Register() {
                     <input
                         type='email'
                         placeholder='email'
-                        name='email'
-                        value={infosRegister.email}
-                        onChange={e => setInfosRegister({ ...infosRegister, email: e.target.value })}
+                        disabled={true}
+                        style={{ background: '#F2F2F2', color: '#AFAFAF' }}
                     />
                     <input
                         type='text'
                         placeholder='senha'
-                        name='password'
-                        value={infosRegister.password}
-                        onChange={e => setInfosRegister({ ...infosRegister, password: e.target.value })}
+                        disabled={true}
+                        style={{ background: '#F2F2F2', color: '#AFAFAF' }}
                     />
                     <input
                         type='text'
                         placeholder='nome'
-                        name='name'
-                        value={infosRegister.name}
+                        disabled={true}
+                        style={{ background: '#F2F2F2', color: '#AFAFAF' }}
                     />
                     <input
                         type='text'
                         placeholder='foto'
-                        name='image'
-                        value={infosRegister.image}
+                        disabled={true}
+                        style={{ background: '#F2F2F2', color: '#AFAFAF' }}
                     />
                     <div>
-                        <button disabled><Loading /></button>
+                        <button disabled style={{ opacity: 0.7 }}><Loading /></button>
                     </div>
                 </form>
                 :
@@ -88,6 +86,7 @@ function Register() {
                         name='email'
                         value={infosRegister.email}
                         onChange={e => setInfosRegister({ ...infosRegister, email: e.target.value })}
+                        disabled={false}
                         required
                     />
                     <input
@@ -96,6 +95,7 @@ function Register() {
                         name='password'
                         value={infosRegister.password}
                         onChange={e => setInfosRegister({ ...infosRegister, password: e.target.value })}
+                        disabled={false}
                         required
                     />
                     <input
@@ -104,14 +104,16 @@ function Register() {
                         name='name'
                         value={infosRegister.name}
                         onChange={e => setInfosRegister({ ...infosRegister, name: e.target.value })}
+                        disabled={false}
                         required
                     />
                     <input
-                        type='text'
+                        type="url"
                         placeholder='foto'
                         name='image'
                         value={infosRegister.image}
                         onChange={e => setInfosRegister({ ...infosRegister, image: e.target.value })}
+                        disabled={false}
                         required
                     />
                     <div>
@@ -176,11 +178,17 @@ const ContainerInputs = styled.div`
         height: 45px;
         background: #FFFFFF;
         border: 1px solid #D5D5D5;
-        box-sizing: border-box;
         border-radius: 5px;
         margin-bottom: 6px;
         display: flex;
         flex-direction: column;
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19.976px;
+        line-height: 25px;
+        color: #DBDBDB;
+        padding-left: 20px;
     }
 
     input::placeholder {
@@ -190,7 +198,6 @@ const ContainerInputs = styled.div`
         font-size: 19.976px;
         line-height: 25px;
         color: #DBDBDB;
-        padding-left: 11px;
     }
 
     button {

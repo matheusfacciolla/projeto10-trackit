@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import axios from 'axios';
 
 import Logo from '../assets/images/logo-trackit.png'
 import Loading from './Loading';
@@ -8,11 +9,12 @@ import styled from 'styled-components';
 
 function Login() {
 
-    const [infosLogin, setInfosLogin] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
+    const [infosLogin, setInfosLogin] = useState({email: "", password: ""});
+    const [isLoading, setIsLoading] = useState(false);
+    
     const inputsLogin = handleInputsLogin();
-
-    /*
+    const navigate = useNavigate();
+    
     const ObjLogin = {
         email: infosLogin.email,
         password: infosLogin.password
@@ -20,51 +22,48 @@ function Login() {
 
     const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login';
 
-    const promise = axios.post(URL, ObjLogin);
-
-    promise.then((response) => {
-        const { data } = response;
-        setInfosLogin(data);
-        setIsLoading(false);
-        navigate('/hoje');
-    });
-
-    promise.catch(error => {
-        alert("Deu algum erro...");
-    });
-    */
-
     function handleLogin(e) {
         e.preventDefault();
+        setIsLoading(true);
+
+        const promise = axios.post(URL, ObjLogin);
+        
+        console.log("obj", ObjLogin)
+
+        promise.then((response) => { 
+            console.log("obj2", ObjLogin)
+            setInfosLogin(response.data);
+            console.log(response.data)
+            setIsLoading(false);
+            navigate('/habitos');
+        });
+
+        promise.catch(error => {
+            console.log("obj2", ObjLogin)
+            alert("Deu algum erro...");
+            console.log(error);
+            setIsLoading(false);
+        });
     }
 
-    useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 2000)
-    });
-
-
-    //Renderiza os inputs
     function handleInputsLogin() {
         return (
             isLoading === true ?
-                <form onSubmit={handleLogin} disabled>
+                <form onSubmit={handleLogin}>
                     <input
                         type='email'
                         placeholder='email'
-                        name='email'
-                        value={infosLogin.email}
-                        onChange={e => setInfosLogin({ ...infosLogin, email: e.target.value })}
+                        disabled={true}
+                        style={{ background: '#F2F2F2', color: '#AFAFAF' }}
                     />
                     <input
-                        type='text'
+                        type='password'
                         placeholder='senha'
-                        name='password'
-                        value={infosLogin.senha}
-                        onChange={e => setInfosLogin({ ...infosLogin, password: e.target.value })}
+                        disabled={true}
+                        style={{ background: '#F2F2F2', color: '#AFAFAF' }}
+                        
                     />
-                    <button disabled><Loading /></button>
+                    <button disabled style={{ opacity: 0.7 }}><Loading /></button>
                 </form>
                 :
                 <form onSubmit={handleLogin}>
@@ -74,19 +73,19 @@ function Login() {
                         name='email'
                         value={infosLogin.email}
                         onChange={e => setInfosLogin({ ...infosLogin, email: e.target.value })}
+                        disabled={false}
                         required
                     />
                     <input
-                        type='text'
+                        type='password'
                         placeholder='senha'
                         name='password'
                         value={infosLogin.senha}
                         onChange={e => setInfosLogin({ ...infosLogin, password: e.target.value })}
+                        disabled={false}
                         required
                     />
-                    <Link to='/habitos'>
                         <button type='submit'>Entrar</button>
-                    </Link>
                 </form>
         );
     }
@@ -146,11 +145,17 @@ const ContainerInputs = styled.div`
         height: 45px;
         background: #FFFFFF;
         border: 1px solid #D5D5D5;
-        box-sizing: border-box;
         border-radius: 5px;
         margin-bottom: 6px;
         display: flex;
         flex-direction: column;
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19.976px;
+        line-height: 25px;
+        color: #DBDBDB;
+        padding-left: 14px;
     }
 
     input::placeholder {
@@ -160,7 +165,6 @@ const ContainerInputs = styled.div`
         font-size: 19.976px;
         line-height: 25px;
         color: #DBDBDB;
-        padding-left: 11px;
     }
 
     button {
