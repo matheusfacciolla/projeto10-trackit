@@ -1,7 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
 
+import UserContext from '../contexts/UserContext';
 import Logo from '../assets/images/logo-trackit.png'
 import Loading from './Loading';
 
@@ -9,11 +10,12 @@ import styled from 'styled-components';
 
 function Login() {
 
-    const [infosLogin, setInfosLogin] = useState({email: "", password: ""});
+    const [infosLogin, setInfosLogin] = useState({email: '', password: ''});
     const [isLoading, setIsLoading] = useState(false);
     
     const inputsLogin = handleInputsLogin();
     const navigate = useNavigate();
+    const { setToken, setImgPerfil } = useContext(UserContext);
     
     const ObjLogin = {
         email: infosLogin.email,
@@ -27,21 +29,16 @@ function Login() {
         setIsLoading(true);
 
         const promise = axios.post(URL, ObjLogin);
-        
-        console.log("obj", ObjLogin)
 
         promise.then((response) => { 
-            console.log("obj2", ObjLogin)
-            setInfosLogin(response.data);
-            console.log(response.data)
-            setIsLoading(false);
-            navigate('/habitos');
+            setToken(response.data.token);
+            setImgPerfil(response.data.image);
+            setIsLoading(false);     
+            navigate('/Today');
         });
 
         promise.catch(error => {
-            console.log("obj2", ObjLogin)
-            alert("Deu algum erro...");
-            console.log(error);
+            alert('Usuário ou senha incorretos...'); 
             setIsLoading(false);
         });
     }

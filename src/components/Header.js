@@ -1,12 +1,17 @@
+import { useContext } from 'react';
+
+import UserContext from "../contexts/UserContext";
+
 import styled from 'styled-components';
 
-import photoPerfil from '../assets/images/bobesponja.png'
-
 function Header() {
+
+    const { imgPerfil } = useContext(UserContext);
+
     return (
         <Head>
             <h1>TrackIt</h1>
-            <img src={photoPerfil} alt='photoPerfil' />
+            <img src={imgPerfil} alt='photoPerfil' />
         </Head>
     );
 }

@@ -4,6 +4,7 @@ import Menu from './Menu';
 import styled from 'styled-components';
 
 function Habits() {
+
     return (
         <>
             <Header />

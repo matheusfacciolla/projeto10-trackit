@@ -1,9 +1,13 @@
 import styled from 'styled-components';
+import ProgressBar from './ProgressBar';
 
 function Menu() {
     return (
         <ContainerMenu>
             <p>Hábitos</p>
+            <ContainerProgressBar>
+                <ProgressBar />
+            </ContainerProgressBar>
             <p>Histórico</p>
         </ContainerMenu>
     );
@@ -33,4 +37,8 @@ const ContainerMenu = styled.div `
         margin-left: 32px;
         margin-right: 32px;
     }
+`;
+
+const ContainerProgressBar = styled.div `
+    margin-bottom: 50px;
 `;
