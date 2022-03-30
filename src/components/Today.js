@@ -5,6 +5,7 @@ import UserContext from '../contexts/UserContext';
 import styled from 'styled-components';
 import Header from "./Header";
 import Menu from './Menu';
+import Day from './Day';
 
 function Today() {
 
@@ -54,6 +55,7 @@ function Today() {
     return (
         <ContainerContent>
             <Header />
+            <Day />
             {handleTasks}
             <Menu />
         </ContainerContent>
@@ -63,6 +65,8 @@ function Today() {
 export default Today;
 
 const ContainerContent = styled.div `
+    margin-top: 100px;
+    margin-left: 20px;
     width: 100%;
     height: 100%;
     background-color: #E5E5E5;

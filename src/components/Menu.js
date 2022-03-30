@@ -1,14 +1,23 @@
-import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+
 import ProgressBar from './ProgressBar';
+
+import styled from 'styled-components';
 
 function Menu() {
     return (
         <ContainerMenu>
-            <p>Hábitos</p>
+            <Link to='/habitos' style={{ textDecoration: 'none'}}>
+                <p>Hábitos</p>
+            </Link>
             <ContainerProgressBar>
-                <ProgressBar />
+                <Link to='/hoje'>
+                    <ProgressBar />
+                </Link>
             </ContainerProgressBar>
-            <p>Histórico</p>
+            <Link to='/historico' style={{ textDecoration: 'none'}}>
+                <p>Histórico</p>
+            </Link>
         </ContainerMenu>
     );
 }
@@ -36,6 +45,8 @@ const ContainerMenu = styled.div `
         color: #52B6FF;
         margin-left: 32px;
         margin-right: 32px;
+        cursor: pointer;
+        text-decoration: none;
     }
 `;
 

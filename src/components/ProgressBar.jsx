@@ -5,23 +5,21 @@ function ProgressBar() {
 
     const percentage = 66;
 
-    return (
-        <>
-            <CircularProgressbar
-                value={percentage}
-                // text={`${percentage}%`}
-                text={`Hoje`}
-                background
-                backgroundPadding={6}
-                styles={buildStyles({
-                backgroundColor: "#52B6FF",
-                textColor: "#fff",
-                pathColor: "#fff",
-                trailColor: "transparent",
-                root: {width: 91, height: 91}
-                })}
-            />
-        </>
+    return (       
+        <CircularProgressbar
+            value={percentage}
+            // text={`${percentage}%`}
+            text={`Hoje`}
+            background
+            backgroundPadding={6}
+            styles={buildStyles({
+            backgroundColor: "#52B6FF",
+            textColor: "#fff",
+            pathColor: "#fff",
+            trailColor: "transparent",
+            root: {width: 91, height: 91}
+            })}
+        />
     );
 }
 

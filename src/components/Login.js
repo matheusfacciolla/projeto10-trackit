@@ -34,7 +34,7 @@ function Login() {
             setToken(response.data.token);
             setImgPerfil(response.data.image);
             setIsLoading(false);     
-            navigate('/Today');
+            navigate('/Hoje');
         });
 
         promise.catch(error => {
@@ -113,6 +113,7 @@ const ContainerContent = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: white;
 `;
 
 const ContainerLogo = styled.div`

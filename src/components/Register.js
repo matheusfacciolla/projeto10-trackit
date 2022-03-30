@@ -149,6 +149,7 @@ const ContainerContent = styled.div`
     align-items: center;
     width: 100vw;
     height: 100vh;
+    background-color: white;
 `;
 
 const ContainerLogo = styled.div`
@@ -188,7 +189,7 @@ const ContainerInputs = styled.div`
         font-size: 19.976px;
         line-height: 25px;
         color: #DBDBDB;
-        padding-left: 20px;
+        padding-left: 14px;
     }
 
     input::placeholder {

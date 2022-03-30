@@ -3,26 +3,25 @@ import Menu from './Menu';
 
 import styled from 'styled-components';
 
-function Habits() {
+function Historic() {
 
     return (
         <>
             <Header />
-                <ContainerHabits>
-                    <ContainerMyHabits>
-                        <h2>Meus hábitos</h2>
-                        <button>+</button>
-                    </ContainerMyHabits>
-                    <p> Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
-                </ContainerHabits>
+                <ContainerHistoric>
+                    <ContainerMyHistoric>
+                        <h2>Histórico</h2>
+                    </ContainerMyHistoric>
+                        <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
+                </ContainerHistoric>
             <Menu />
         </>
     );
 }
 
-export default Habits;
+export default Historic;
 
-const ContainerHabits = styled.div `
+const ContainerHistoric = styled.div `
     width: 100%;
     height: 100%;
     background: #E5E5E5;
@@ -43,10 +42,9 @@ const ContainerHabits = styled.div `
     }
 `;
 
-const ContainerMyHabits = styled.div `
+const ContainerMyHistoric = styled.div `
     display: flex;
     justify-content: space-between;
-
 
     h2 {
         font-family: 'Lexend Deca';
@@ -57,22 +55,5 @@ const ContainerMyHabits = styled.div `
         margin-top: 28px;
         margin-left: 18px;
         color: #126BA5;
-    }
-
-    button {
-        width: 40px;
-        height: 35px;
-        margin-top: 22px;
-        margin-right: 18px;
-        background: #52B6FF;
-        border-radius: 4.63636px;
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 26.976px;
-        line-height: 34px;
-        text-align: center;
-        color: #FFFFFF;
-        border: none;
     }
 `;
