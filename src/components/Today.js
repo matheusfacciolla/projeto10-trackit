@@ -5,15 +5,13 @@ import UserContext from '../contexts/UserContext';
 import styled from 'styled-components';
 import Header from "./Header";
 import Menu from './Menu';
-import Day from './Day';
+import Day from './Library/Day';
 
 function Today() {
 
-    const [tasks, setTasks] = useState(null);
+    const [tasks, setTasks] = useState([]);
 
     const { token } = useContext(UserContext);
-
-    //console.log("context2", useContext(UserContext))
 
     useEffect(() => {
         const config = {
@@ -27,9 +25,9 @@ function Today() {
         const promise = axios.get(URL, config);
 
         promise.then((response) => {
-            console.log("api today", response.data)
+            console.log("api resposta today", response.data)
             setTasks(response.data);
-            //console.log("tasks", tasks)
+            console.log("tasks", tasks)
         });
         promise.catch(error => {
             alert("Deu algum erro no cadastro...");

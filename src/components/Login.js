@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import UserContext from '../contexts/UserContext';
 import Logo from '../assets/images/logo-trackit.png'
-import Loading from './Loading';
+import Loading from './Library/Loading';
 
 import styled from 'styled-components';
 

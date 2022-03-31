@@ -1,37 +1,17 @@
 import axios from 'axios';
 import { useContext, useEffect } from 'react';
 
-import Header from './Header';
-import Menu from './Menu';
+import Header from '../Header';
+import Menu from '../Menu';
 import CreateHabits from './CreateHabits';
-import UserContext from '../contexts/UserContext';
+import ListHabits from './ListHabits'
+import UserContext from '../../contexts/UserContext';
 
 import styled from 'styled-components';
 
 function Habits() {
 
-    const { token, newHabit, setNewHabit } = useContext(UserContext);
-
-    const config = {
-        headers: {
-            Authorization: `Bearer ${token}`
-        }
-    }
-
-    useEffect(() => {
-
-        const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`;
-
-        const promise = axios.get(URL, config);
-
-        promise.then((response) => {
-            console.log("api today", response.data)
-            //console.log("tasks", tasks)
-        });
-        promise.catch(error => {
-            alert("Deu algum erro no cadastro...");
-        });
-    }, []);
+    const { newHabit, setNewHabit } = useContext(UserContext);
 
     return (
         <>
@@ -39,13 +19,15 @@ function Habits() {
             <ContainerHabits>
                 <ContainerMyHabits>
                     <h2>Meus hábitos</h2>
-                    <button onClick={() => setNewHabit(false)}>+</button>
+                    <button onClick={() => setNewHabit(true)}>+</button>
                 </ContainerMyHabits>
-                {    
-                newHabit  ?  
-                <p> Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p> 
-                : 
-                <CreateHabits/>  
+                {
+                    newHabit ?
+                        <CreateHabits />
+                        :
+                        <ContainerListHabits>
+                            <ListHabits />
+                        </ContainerListHabits>
                 }
             </ContainerHabits>
             <Menu />
@@ -62,18 +44,7 @@ const ContainerHabits = styled.div`
     margin-top: 70px;
     display: flex;
     flex-direction: column;
-
-    p {
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 17.976px;
-        line-height: 22px;
-        color: #666666;
-        margin-top: 30px;
-        margin-left: 17px;
-        margin-right: 20px;
-    }
+    margin-bottom: 80px;
 `;
 
 const ContainerMyHabits = styled.div`
@@ -107,4 +78,9 @@ const ContainerMyHabits = styled.div`
         color: #FFFFFF;
         border: none;
     }
+`;
+
+const ContainerListHabits = styled.div`
+   display: flex;
+   flex-direction: column;
 `;

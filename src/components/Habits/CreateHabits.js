@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import { useState, useContext } from 'react';
 import axios from 'axios';
 
-import UserContext from '../contexts/UserContext';
-import Loading from './Loading';
+import UserContext from '../../contexts/UserContext';
+import Loading from '../Library/Loading';
 
 import styled from 'styled-components';
 
@@ -12,12 +12,11 @@ function MyHabits() {
     const [addHabit, setAddHabit] = useState({ name: '', days: [] });
     const [addId, setAddId] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    //const [isSelected, setIsSelected] = useState(false);
 
     const navigate = useNavigate();
     const InputsMyHabits = handleInputMyHabits();
 
-    const { token, setNewHabit } = useContext(UserContext);
+    const { token, setNewHabit, setHabitCreated } = useContext(UserContext);
 
     const days = [
         { id: 1, day: "D" },
@@ -33,9 +32,6 @@ function MyHabits() {
         name: addHabit.name,
         days: addId
     }
-
-    console.log("arrayid", addId)
-    console.log("objeto", ObjMyHabits)
 
     const URL = 'https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits';
 
@@ -54,12 +50,12 @@ function MyHabits() {
         promise.then((response) => {
             setIsLoading(false);
             console.log("resposta api habito criado", response.data);
-            setAddHabit(response.data)
-            navigate('/Hoje');
+            setHabitCreated(response.data)
+            navigate('/Habitos');
         });
 
         promise.catch(error => {
-            alert('Usuário ou senha incorretos...');
+            alert('Deu algum erro');
             console.log(error.data)
             setIsLoading(false);
         });
@@ -98,7 +94,7 @@ function MyHabits() {
                 <ButtonConfirmCancel>
                     {!isLoading ?
                         <>
-                            <ButtonCancel onClick={() => setNewHabit(true)}>Cancelar</ButtonCancel>
+                            <ButtonCancel onClick={() => setNewHabit(false)}>Cancelar</ButtonCancel>
                             <ButtonConfirm onClick={handleNewHabit}>Salvar</ButtonConfirm>
                         </>
                         :
@@ -119,15 +115,12 @@ function Day(props) {
 
     const [selected, setSelected] = useState(false);
 
-    console.log(selected)
-
     const backgroundNotSelected = '#FFFFFF';
     const backgroundSelected = '#CFCFCF';
     const colorNotSelected = '#DBDBDB';
     const colorSelected = '#FFFFFF';
 
     if (selected === false) {
-        console.log("entrou1")
         return <ButtonDay background={backgroundNotSelected} color={colorNotSelected} onClick={() => {
             setSelected(true);
             setAddId([...addId, info.id])
@@ -135,7 +128,7 @@ function Day(props) {
         }>{info.day}</ButtonDay>
 
     } else if (selected === true) {
-        console.log("entrou2")
+
         return <ButtonDay background={backgroundSelected} color={colorSelected} onClick={() => {
             setSelected(false);
             setAddId(addId.splice(addId.indexOf(info.id), 1));

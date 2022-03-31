@@ -17,7 +17,7 @@ function ProgressBar() {
             textColor: "#fff",
             pathColor: "#fff",
             trailColor: "transparent",
-            root: {width: 91, height: 91}
+            root: {width: 50, height: 50}
             })}
         />
     );

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import ProgressBar from './ProgressBar';
+import ProgressBar from './Library/ProgressBar';
 
 import styled from 'styled-components';
 
@@ -51,5 +51,5 @@ const ContainerMenu = styled.div `
 `;
 
 const ContainerProgressBar = styled.div `
-    margin-bottom: 65px;
+    margin-bottom: 100px;
 `;

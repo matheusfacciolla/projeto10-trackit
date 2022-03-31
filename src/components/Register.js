@@ -3,7 +3,7 @@ import { useState } from 'react';
 import axios from 'axios';
 
 import Logo from '../assets/images/logo-trackit.png';
-import Loading from './Loading';
+import Loading from './Library/Loading';
 
 import styled from 'styled-components';
 
