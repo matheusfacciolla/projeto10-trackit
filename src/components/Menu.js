@@ -51,5 +51,5 @@ const ContainerMenu = styled.div `
 `;
 
 const ContainerProgressBar = styled.div `
-    margin-bottom: 50px;
+    margin-bottom: 65px;
 `;

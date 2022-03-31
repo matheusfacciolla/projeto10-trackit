@@ -1,20 +1,53 @@
+import axios from 'axios';
+import { useContext, useEffect } from 'react';
+
 import Header from './Header';
 import Menu from './Menu';
+import CreateHabits from './CreateHabits';
+import UserContext from '../contexts/UserContext';
 
 import styled from 'styled-components';
 
 function Habits() {
 
+    const { token, newHabit, setNewHabit } = useContext(UserContext);
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+
+    useEffect(() => {
+
+        const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits`;
+
+        const promise = axios.get(URL, config);
+
+        promise.then((response) => {
+            console.log("api today", response.data)
+            //console.log("tasks", tasks)
+        });
+        promise.catch(error => {
+            alert("Deu algum erro no cadastro...");
+        });
+    }, []);
+
     return (
         <>
             <Header />
-                <ContainerHabits>
-                    <ContainerMyHabits>
-                        <h2>Meus hábitos</h2>
-                        <button>+</button>
-                    </ContainerMyHabits>
-                    <p> Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
-                </ContainerHabits>
+            <ContainerHabits>
+                <ContainerMyHabits>
+                    <h2>Meus hábitos</h2>
+                    <button onClick={() => setNewHabit(false)}>+</button>
+                </ContainerMyHabits>
+                {    
+                newHabit  ?  
+                <p> Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p> 
+                : 
+                <CreateHabits/>  
+                }
+            </ContainerHabits>
             <Menu />
         </>
     );
@@ -22,7 +55,7 @@ function Habits() {
 
 export default Habits;
 
-const ContainerHabits = styled.div `
+const ContainerHabits = styled.div`
     width: 100%;
     height: 100%;
     background: #E5E5E5;
@@ -43,10 +76,9 @@ const ContainerHabits = styled.div `
     }
 `;
 
-const ContainerMyHabits = styled.div `
+const ContainerMyHabits = styled.div`
     display: flex;
     justify-content: space-between;
-
 
     h2 {
         font-family: 'Lexend Deca';

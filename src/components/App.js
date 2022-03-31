@@ -11,8 +11,9 @@ import Historic from './Historic';
 function App() {
     const [token, setToken] = useState(null);
     const [imgPerfil, setImgPerfil] = useState(null);
+    const [newHabit, setNewHabit] = useState(true);
 
-    const contextValue = { token, setToken, imgPerfil, setImgPerfil };
+    const contextValue = { token, setToken, imgPerfil, setImgPerfil, newHabit, setNewHabit };
 
     return (
         <UserContext.Provider value={contextValue}>

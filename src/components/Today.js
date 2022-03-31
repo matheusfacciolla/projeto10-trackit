@@ -27,7 +27,7 @@ function Today() {
         const promise = axios.get(URL, config);
 
         promise.then((response) => {
-           // console.log("api", response.data)
+            console.log("api today", response.data)
             setTasks(response.data);
             //console.log("tasks", tasks)
         });
@@ -55,7 +55,9 @@ function Today() {
     return (
         <ContainerContent>
             <Header />
-            <Day />
+            <Containerdate>
+                <Day />
+            </Containerdate>
             {handleTasks}
             <Menu />
         </ContainerContent>
@@ -65,8 +67,6 @@ function Today() {
 export default Today;
 
 const ContainerContent = styled.div `
-    margin-top: 100px;
-    margin-left: 20px;
     width: 100%;
     height: 100%;
     background-color: #E5E5E5;
@@ -82,4 +82,10 @@ const ContainerTasks = styled.div`
     p {
         color: blue;
     }
+`;
+
+const Containerdate = styled.div `
+    margin-top: 100px;
+    margin-left: 20px;
+    background-color: #E5E5E5;
 `;
