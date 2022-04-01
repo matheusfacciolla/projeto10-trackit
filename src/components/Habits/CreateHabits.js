@@ -75,7 +75,7 @@ function MyHabits() {
                 />
 
                 :
-
+                
                 <input
                     type='text'
                     placeholder='nome do hábito'
@@ -143,10 +143,11 @@ export default MyHabits;
 const ContainerContent = styled.div`
     width: 340px;
     height: 180px;
-    margin-left: 17px;
+    margin: auto auto;
     margin-top: 20px;
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: white;
     border-radius: 5px;
 `;

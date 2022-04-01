@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 
 import Header from '../Header';
 import Menu from '../Menu';
@@ -9,7 +8,7 @@ import UserContext from '../../contexts/UserContext';
 
 import styled from 'styled-components';
 
-function Habits() {
+function MyHabits() {
 
     const { newHabit, setNewHabit } = useContext(UserContext);
 
@@ -35,7 +34,7 @@ function Habits() {
     );
 }
 
-export default Habits;
+export default MyHabits;
 
 const ContainerHabits = styled.div`
     width: 100%;
@@ -63,20 +62,21 @@ const ContainerMyHabits = styled.div`
     }
 
     button {
-        width: 40px;
-        height: 35px;
-        margin-top: 22px;
-        margin-right: 18px;
-        background: #52B6FF;
-        border-radius: 4.63636px;
-        font-family: 'Lexend Deca';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 26.976px;
-        line-height: 34px;
-        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        margin-right:17px;
+        width:40px;
+        height:35px;
+        background-color: #52B6FF;
         color: #FFFFFF;
         border: none;
+        border-radius: 4.63636px;
+        font-family: 'Lexend Deca';
+        font-size: 26.976px;
+        padding-bottom:5px;
+        margin-top: 22px;
+        cursor: pointer;
     }
 `;
 

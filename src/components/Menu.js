@@ -51,5 +51,14 @@ const ContainerMenu = styled.div `
 `;
 
 const ContainerProgressBar = styled.div `
-    margin-bottom: 100px;
+    margin-bottom: 35px;
+    width: 91px;
+    height: 91px;
+    font-family: 'Lexend Deca';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17.976px;
+    line-height: 22px;
+    text-align: center;
+    color: #FFFFFF;
 `;
