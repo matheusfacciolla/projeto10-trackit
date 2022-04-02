@@ -27,21 +27,17 @@ function Register() {
     function handleRegister(e) {
         e.preventDefault();
         setIsLoading(true);
-        console.log("obj", ObjRegister)
 
         const promise = axios.post(URL, ObjRegister);
 
         promise.then((response) => {
             setInfosRegister(response.data);
-            console.log("obj", ObjRegister)
             setIsLoading(false);
             navigate('/');
         });
 
         promise.catch(error => {
             alert("Deu algum erro...");
-            console.log("obj", ObjRegister)
-            console.log(error);
             setIsLoading(false);
         });
     }

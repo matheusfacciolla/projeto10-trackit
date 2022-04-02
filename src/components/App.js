@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import UserContext from '../contexts/UserContext';
 import Login from './Login';
@@ -13,8 +13,22 @@ function App() {
     const [imgPerfil, setImgPerfil] = useState(null);
     const [newHabit, setNewHabit] = useState(false);
     const [habitCreated, setHabitCreated] = useState([]);
+    const [listHabits, setListHabits] = useState([]);
+    const [progress, setProgress] = useState(0);
+    const [att, setAtt] = useState(false);
 
-    const contextValue = { token, setToken, imgPerfil, setImgPerfil, newHabit, setNewHabit, habitCreated, setHabitCreated };
+    const contextValue = { token, setToken, imgPerfil, setImgPerfil, newHabit, setNewHabit, habitCreated, setHabitCreated, progress, setProgress, listHabits, setListHabits, att, setAtt };
+
+   /* useEffect(() => {
+        const tokenStorage = localStorage.getItem('token') ;
+        if(tokenStorage){
+            setToken(JSON.parse(tokenStorage));
+        } else {
+            setToken({
+                token: ''
+            })
+        }
+    }, []); */
 
     return (
         <UserContext.Provider value={contextValue}>

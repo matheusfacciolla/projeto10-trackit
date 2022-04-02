@@ -21,4 +21,5 @@ const StyleDate = styled.p `
     font-size: 22.976px;
     line-height: 29px;
     color: #126BA5;
+    text-transform: capitalize;
 `;

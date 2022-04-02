@@ -19,13 +19,13 @@ function MyHabits() {
     const { token, setNewHabit, setHabitCreated } = useContext(UserContext);
 
     const days = [
-        { id: 1, day: "D" },
-        { id: 2, day: "S" },
-        { id: 3, day: "T" },
+        { id: 1, day: "S" },
+        { id: 2, day: "T" },
+        { id: 3, day: "Q" },
         { id: 4, day: "Q" },
-        { id: 5, day: "Q" },
+        { id: 5, day: "S" },
         { id: 6, day: "S" },
-        { id: 7, day: "S" }
+        { id: 7, day: "D" }
     ]
 
     const ObjMyHabits = {
@@ -49,7 +49,6 @@ function MyHabits() {
 
         promise.then((response) => {
             setIsLoading(false);
-            console.log("resposta api habito criado", response.data);
             setHabitCreated(response.data);
             setNewHabit(false);
             navigate('/Habitos');
@@ -57,7 +56,6 @@ function MyHabits() {
 
         promise.catch(error => {
             alert('Deu algum erro');
-            console.log(error.data)
             setIsLoading(false);
         });
     }
@@ -76,11 +74,12 @@ function MyHabits() {
                 />
 
                 :
-                
+
                 <input
                     type='text'
                     placeholder='nome do hábito'
                     disabled={true}
+                    style={{ background: '#F2F2F2', color: '#AFAFAF' }}
                 />
         );
     }
@@ -96,12 +95,12 @@ function MyHabits() {
                     {!isLoading ?
                         <>
                             <ButtonCancel onClick={() => setNewHabit(false)}>Cancelar</ButtonCancel>
-                            <ButtonConfirm onClick={handleNewHabit}>Salvar</ButtonConfirm>
+                            <ButtonConfirm onClick={handleNewHabit} disabled={addId > 0 ? false : true}>Salvar</ButtonConfirm>
                         </>
                         :
                         <>
                             <ButtonCancel>Cancelar</ButtonCancel>
-                            <ButtonConfirm><Loading /></ButtonConfirm>
+                            <ButtonConfirm style={{ opacity: 0.7 }}><Loading /></ButtonConfirm>
                         </>
                     }
                 </ButtonConfirmCancel>
@@ -168,6 +167,12 @@ const ContainerInputs = styled.div`
         padding-left: 14px;
         margin-top: 18px;
         margin-left: 18px;
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 19.976px;
+        line-height: 25px;
+        color: #DBDBDB;
     }
 
     input::placeholder {

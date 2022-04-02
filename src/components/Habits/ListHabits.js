@@ -1,17 +1,17 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 import UserContext from '../../contexts/UserContext';
+import Loading from '../Library/Loading';
+
 
 import styled from 'styled-components';
 
 
 function ListHabits() {
 
-    const [listHabits, setListHabits] = useState([]);
-
-    const { token } = useContext(UserContext);
+    const { token, listHabits, setListHabits, att, setAtt} = useContext(UserContext);
 
     useEffect(() => {
         const config = {
@@ -25,14 +25,18 @@ function ListHabits() {
         const promise = axios.get(URL, config);
 
         promise.then((response) => {
-            console.log("api lista de habitos", response.data)
             setListHabits(response.data);
         });
         promise.catch(error => {
             alert("Deu algum erro no cadastro...");
-            console.log(error)
         });
-    }, []);
+    }, [att]);
+
+    function handleText() {
+        return (
+            <p> Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+        );
+    }
 
     return (
         <Container>
@@ -40,10 +44,22 @@ function ListHabits() {
             {
                 listHabits.length > 0 ?
                     <>
-                        {listHabits.map((habit) => <Habit info={habit} token={token} setListHabits={setListHabits} listHabits={listHabits} />)}
+                        {listHabits.map((habit) => 
+                        <Habit 
+                        info={habit} 
+                        token={token} 
+                        setListHabits={setListHabits} 
+                        listHabits={listHabits}
+                        att={att}
+                        setAtt={setAtt} />)}
                     </>
                     :
-                    <p> Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</p>
+                    <>
+                     {() => {
+                         <Loading />
+                         setTimeout(handleText, 500)
+                         }}
+                    </>
             }
 
         </Container>
@@ -57,14 +73,12 @@ function Habit(props) {
     const colorNotSelected = '#DBDBDB';
     const colorSelected = '#FFFFFF';
 
-    const { info, setListHabits, listHabits, token } = props;
+    const { info, setListHabits, token, att, setAtt } = props;
 
     const navigate = useNavigate();
 
-    console.log(props)
-
     const dias = [1, 2, 3, 4, 5, 6, 7];
-    const mapping = { 1: 'D', 2: 'S', 3: 'T', 4: 'Q', 5: 'Q', 6: 'S', 7: 'S' }
+    const mapping = { 1: 'S', 2: 'T', 3: 'Q', 4: 'Q', 5: 'S', 6: 'S', 7: 'D' }
 
     function deleteButtonHandler() {
         if (window.confirm("Você tem certeza?")) {
@@ -76,15 +90,12 @@ function Habit(props) {
 
             const promise = axios.delete(URL, config);
             promise.then((response) => {
-
-                setListHabits(response.data)
-                console.log("foi deletado")
-                navigate('/habitos') 
-                console.log("??????")  
-                console.log("consolehabits", listHabits) 
+                setListHabits(response.data);
+                setAtt(!att);
+                navigate('/habitos');
             });
-            promise.catch(error => {
-                console.log(error);
+            promise.catch(() => {
+                alert("Algo deu errado...")
             })
         }
     }

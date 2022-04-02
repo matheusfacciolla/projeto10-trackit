@@ -1,9 +1,14 @@
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 
+import { useContext } from 'react';
+
+import UserContext from '../../contexts/UserContext';
+
 function ProgressBar() {
 
-    const percentage = 66;
+    const { progress } = useContext(UserContext);
+    const percentage = progress;
 
     return (       
         <CircularProgressbar

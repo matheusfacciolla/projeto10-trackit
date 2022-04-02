@@ -32,6 +32,7 @@ function Login() {
 
         promise.then((response) => { 
             setToken(response.data.token);
+            //localStorage.setItem('token', JSON.stringify({...response.data}));
             setImgPerfil(response.data.image);
             setIsLoading(false);     
             navigate('/Hoje');
