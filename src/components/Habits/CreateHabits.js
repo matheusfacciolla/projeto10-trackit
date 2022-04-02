@@ -50,7 +50,8 @@ function MyHabits() {
         promise.then((response) => {
             setIsLoading(false);
             console.log("resposta api habito criado", response.data);
-            setHabitCreated(response.data)
+            setHabitCreated(response.data);
+            setNewHabit(false);
             navigate('/Habitos');
         });
 

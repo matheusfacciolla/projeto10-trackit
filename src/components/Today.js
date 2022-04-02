@@ -10,6 +10,7 @@ import Day from './Library/Day';
 function Today() {
 
     const [todayHabits, setTodayHabits] = useState([]);
+    const [att, setAtt] = useState(false);
 
     const { token } = useContext(UserContext);
 
@@ -31,7 +32,7 @@ function Today() {
         promise.catch(error => {
             alert("Deu algum erro no cadastro...");
         });
-    }, []);
+    }, [att]);
 
     return (
         <ContainerContent>
@@ -39,20 +40,31 @@ function Today() {
             <Containerdate>
                 <Day />
             </Containerdate>
-            <ContainerHabits>
-                {todayHabits.map(habit => <HandleTasks info={habit} />)}
-            </ContainerHabits>
+            {todayHabits.map(habit => <TodayHabit info={habit} key={todayHabits.id} att={att} setAtt={setAtt} />)}
             <Menu />
         </ContainerContent>
     );
 }
 
-function HandleTasks(props) {
+function TodayHabit(props) {
 
-    const { info } = props
+    const { info, setAtt, att } = props
+    const { token } = useContext(UserContext);
+
+    const isCheckTrue = "#8FC549";
+    const isCheckFalse = "#EBEBEB";
+
+    function handleCheck() {
+        console.log(info)
+        const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${info.id}/${!info.done ? "check" : "uncheck"}`;
+        const config = { headers: { Authorization: `Bearer ${token}` } };
+        const promise = axios.post(URL, null, config);
+
+        promise.then(() => setAtt(!att)).catch(() => { alert("Deu algum erro..."); console.log(URL) });
+    }
 
     return (
-        <>
+        <ContainerHabits>
             <Containertarefa>
                 <p>{info.name}</p>
             </Containertarefa>
@@ -61,11 +73,10 @@ function HandleTasks(props) {
                 <p>Seu recorde: {info.highestSequence}</p>
             </ContainerSequencia>
             <ContainerCheck>
-                <button><ion-icon name="checkmark-outline"></ion-icon></button>
+                <Button isCheck={info.done ? isCheckTrue : isCheckFalse} onClick={() => { handleCheck(info) }}><ion-icon name="checkmark-outline"></ion-icon></Button>
             </ContainerCheck>
-        </>
+        </ContainerHabits>
     );
-
 }
 
 export default Today;
@@ -82,12 +93,22 @@ const ContainerHabits = styled.div`
     background: #FFFFFF;
     border-radius: 5px;
     margin-left: 33px;
-    margin-top: 40px;
     padding: 1px;
     position: relative;
+    margin-top: 10px;
+
+    &:first-child {
+        margin-top: 26px;
+    }
 `;
 
-const Containertarefa = styled.div`   
+const Containerdate = styled.div`
+    margin-top: 100px;
+    margin-left: 20px;
+    background-color: #E5E5E5;
+`;
+
+const Containertarefa = styled.div` 
    p {
         font-family: 'Lexend Deca';
         font-style: normal;
@@ -100,7 +121,7 @@ const Containertarefa = styled.div`
     }
 `;
 
-const ContainerSequencia = styled.p `
+const ContainerSequencia = styled.div`
     margin-top: 7px;
 
     p {
@@ -114,9 +135,15 @@ const ContainerSequencia = styled.p `
     }
 `;
 
-const ContainerCheck = styled.div `
-    button {
-        position: absolute;
+const ContainerCheck = styled.div`
+    ion-icon {
+        font-size: 35px;
+        color: #FFFFFF;
+    }
+`;
+
+const Button = styled.button`
+            position: absolute;
         top: 0;
         margin-left: 250px;
         margin-top: 14px;
@@ -125,11 +152,5 @@ const ContainerCheck = styled.div `
         border: 1px solid #E7E7E7;
         box-sizing: border-box;
         border-radius: 5px;
-    }
-`;
-
-const Containerdate = styled.div`
-    margin-top: 100px;
-    margin-left: 20px;
-    background-color: #E5E5E5;
+        background: ${props => props.isCheck};
 `;
