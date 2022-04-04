@@ -81,7 +81,7 @@ function Habit(props) {
     const mapping = {0: 'D', 1: 'S', 2: 'T', 3: 'Q', 4: 'Q', 5: 'S', 6: 'S'}
 
     function deleteButtonHandler() {
-        if (window.confirm("Você tem certeza?")) {
+        if (window.confirm("Você tem certeza que deseja excluir?")) {
 
             const config = {
                 headers: { Authorization: `Bearer ${userInformation.token}` }
@@ -145,6 +145,7 @@ const ContainerHabit = styled.div`
         margin-top: 10px;
         margin-left: 13px;
         color: #666666;
+        word-break: break-all;
     }
 
     ion-icon {

@@ -67,6 +67,7 @@ function MyHabits() {
                     type='text'
                     placeholder='nome do hábito'
                     name='name'
+                    maxlength="18"
                     value={addHabit.name}
                     onChange={(e) => setAddHabit({ ...addHabit, name: e.target.value })}
                     disabled={false}

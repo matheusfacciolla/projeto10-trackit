@@ -57,7 +57,6 @@ const ContainerMyHabits = styled.div`
         font-size: 22.976px;
         line-height: 29px;
         margin-top: 28px;
-        margin-left: 18px;
         color: #126BA5;
     }
 
@@ -65,7 +64,7 @@ const ContainerMyHabits = styled.div`
         display: flex;
         justify-content: center;
         align-items:center;
-        margin-right:17px;
+  
         width:40px;
         height:35px;
         background-color: #52B6FF;
