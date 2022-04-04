@@ -4,10 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import UserContext from "../contexts/UserContext";
 
 import styled from 'styled-components';
+import { useState, useEffect } from 'react';
 
 function Header() {
 
     const { userInformation, setUserInformation } = useContext(UserContext);
+    const [exit, setExit] = useState(true);
 
     const navigate = useNavigate();
 
@@ -20,11 +22,10 @@ function Header() {
         }
     }
 
-
     return (
         <Head>
             <h1>TrackIt</h1>
-            <img src={userInformation.image} onClick={() => { logOut() }} alt='photoPerfil' />
+            {exit? <img src={userInformation.image} onClick={() => {setExit(false)}} alt='photoPerfil' /> : <p onClick={() => {{ logOut() }; setExit(true)}}>Sair</p>} 
         </Head>
     );
 }
@@ -59,6 +60,17 @@ const Head = styled.div`
         height: 51px;
         border-radius: 98.5px;
         margin-right: 18px;
+        cursor: pointer;
+    }
+
+    p {
+        font-family: 'Lexend Deca';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 22.976px;
+        line-height: 29px;
+        color: white;
+        margin-right: 20px;
         cursor: pointer;
     }
 `;
