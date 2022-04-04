@@ -11,12 +11,12 @@ import styled from 'styled-components';
 
 function ListHabits() {
 
-    const { token, listHabits, setListHabits, att, setAtt} = useContext(UserContext);
+    const { listHabits, setListHabits, att, setAtt, userInformation} = useContext(UserContext);
 
     useEffect(() => {
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${userInformation.token}`
             }
         }
 
@@ -26,7 +26,6 @@ function ListHabits() {
 
         promise.then((response) => {
             setListHabits(response.data);
-            console.log(response.data)
         });
         promise.catch(error => {
             alert("Deu algum erro no cadastro...");
@@ -48,7 +47,6 @@ function ListHabits() {
                         {listHabits.map((habit) => 
                         <Habit 
                         info={habit} 
-                        token={token} 
                         setListHabits={setListHabits} 
                         listHabits={listHabits}
                         att={att}
@@ -74,7 +72,8 @@ function Habit(props) {
     const colorNotSelected = '#DBDBDB';
     const colorSelected = '#FFFFFF';
 
-    const { info, setListHabits, token, att, setAtt } = props;
+    const { info, setListHabits, att, setAtt } = props;
+    const { userInformation} = useContext(UserContext);
 
     const navigate = useNavigate();
 
@@ -85,7 +84,7 @@ function Habit(props) {
         if (window.confirm("Você tem certeza?")) {
 
             const config = {
-                headers: { Authorization: `Bearer ${token}` }
+                headers: { Authorization: `Bearer ${userInformation.token}` }
             };
             const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${info.id}`
 

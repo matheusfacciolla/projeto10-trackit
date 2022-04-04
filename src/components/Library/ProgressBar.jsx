@@ -13,7 +13,7 @@ function ProgressBar() {
     return (       
         <CircularProgressbar
             style={{ textDecoration: 'none'}}
-            value={percentage}
+            value={progress > 0 ? percentage : 0}
             //text={`${percentage}%`}
             text={`Hoje`}
             background

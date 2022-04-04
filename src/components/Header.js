@@ -6,12 +6,12 @@ import styled from 'styled-components';
 
 function Header() {
 
-    const { imgPerfil } = useContext(UserContext);
+    const { userInformation } = useContext(UserContext);
 
     return (
         <Head>
             <h1>TrackIt</h1>
-            <img src={imgPerfil} alt='photoPerfil' />
+            <img src={userInformation.image} alt='photoPerfil' />
         </Head>
     );
 }

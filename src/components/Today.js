@@ -11,7 +11,7 @@ function Today() {
 
     const [todayHabits, setTodayHabits] = useState([]);
 
-    const { token, progress, setProgress, att, setAtt } = useContext(UserContext);
+    const { userInformation, progress, setProgress, att, setAtt } = useContext(UserContext);
 
     const isDoneTrue = "#8FC549";
     const isDoneFalse = "#BABABA";
@@ -19,7 +19,7 @@ function Today() {
     useEffect(() => {
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${userInformation.token}`
             }
         }
 
@@ -28,7 +28,6 @@ function Today() {
         const promise = axios.get(URL, config);
 
         promise.then((response) => {
-            console.log(response.data)
             const { data } = response;
             setTodayHabits(response.data);
             setProgress((data.filter((element) => element.done).length / data.length) * 100);
@@ -47,7 +46,7 @@ function Today() {
                     {progress > 0 ? <Porcentagem isDone={progress > 0 ? isDoneTrue : isDoneFalse}>{progress.toFixed(0)}% dos hábitos concluídos</Porcentagem> : <Porcentagem isDone={progress > 0 ? isDoneTrue : isDoneFalse}>Nenhum hábito concluído ainda</Porcentagem>}
                 </ContainerRes>
             </Containerdate>
-            {todayHabits.map(habit => <TodayHabit info={habit} key={todayHabits.id} att={att} setAtt={setAtt} token={token} />)}
+            {todayHabits.map(habit => <TodayHabit info={habit} key={todayHabits.id} att={att} setAtt={setAtt} />)}
             <Menu />
         </ContainerContent>
     );
@@ -55,7 +54,8 @@ function Today() {
 
 function TodayHabit(props) {
 
-    const { info, setAtt, att, token } = props
+    const { info, setAtt, att } = props
+    const { userInformation } = useContext(UserContext);
 
     const isCheckTrue = "#8FC549";
     const isCheckFalse = "#EBEBEB";
@@ -65,7 +65,7 @@ function TodayHabit(props) {
 
     function handleCheck() {
         const URL = `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${info.id}/${!info.done ? "check" : "uncheck"}`;
-        const config = { headers: { Authorization: `Bearer ${token}` } };
+        const config = { headers: { Authorization: `Bearer ${userInformation.token}` } };
         const promise = axios.post(URL, null, config);
 
         promise.then(() => setAtt(!att)).catch(() => { alert("Deu algum erro...")});

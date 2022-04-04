@@ -9,26 +9,25 @@ import MyHabits from './Habits/MyHabits';
 import Historic from './Historic';
 
 function App() {
-    const [token, setToken] = useState(null);
+    const tokenStorage = JSON.parse(localStorage.getItem('token')); 
+    
     const [imgPerfil, setImgPerfil] = useState(null);
     const [newHabit, setNewHabit] = useState(false);
     const [habitCreated, setHabitCreated] = useState([]);
     const [listHabits, setListHabits] = useState([]);
     const [progress, setProgress] = useState(0);
     const [att, setAtt] = useState(false);
+    const [userInformation, setUserInformation] = useState(tokenStorage);
 
-    const contextValue = { token, setToken, imgPerfil, setImgPerfil, newHabit, setNewHabit, habitCreated, setHabitCreated, progress, setProgress, listHabits, setListHabits, att, setAtt };
+    const contextValue = { imgPerfil, setImgPerfil, newHabit, setNewHabit, habitCreated, setHabitCreated, progress, setProgress, listHabits, setListHabits, att, setAtt, userInformation, setUserInformation };
 
-   /* useEffect(() => {
-        const tokenStorage = localStorage.getItem('token') ;
+    
+    useEffect(() => {
         if(tokenStorage){
-            setToken(JSON.parse(tokenStorage));
-        } else {
-            setToken({
-                token: ''
-            })
-        }
-    }, []); */
+            setUserInformation(tokenStorage);
+        } 
+    }, []); 
+    
 
     return (
         <UserContext.Provider value={contextValue}>

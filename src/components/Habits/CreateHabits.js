@@ -16,7 +16,7 @@ function MyHabits() {
     const navigate = useNavigate();
     const InputsMyHabits = handleInputMyHabits();
 
-    const { token, setNewHabit, setHabitCreated } = useContext(UserContext);
+    const { setNewHabit, setHabitCreated, userInformation } = useContext(UserContext);
 
     const days = [
         { id: 0, day: "D" },
@@ -37,14 +37,13 @@ function MyHabits() {
 
     const config = {
         headers: {
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${userInformation.token}`
         }
     }
 
     function handleNewHabit(e) {
         e.preventDefault();
         setIsLoading(true);
-        console.log(ObjMyHabits)
 
         const promise = axios.post(URL, ObjMyHabits, config);
 
@@ -125,7 +124,6 @@ function Day(props) {
         return <ButtonDay background={backgroundNotSelected} color={colorNotSelected} onClick={() => {
             setAddId([...addId, info.id])
             setSelected(true);
-            console.log(addId)
         }
         }>{info.day}</ButtonDay>
 

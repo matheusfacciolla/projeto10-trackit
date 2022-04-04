@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 
 import UserContext from '../contexts/UserContext';
@@ -15,7 +15,7 @@ function Login() {
     
     const inputsLogin = handleInputsLogin();
     const navigate = useNavigate();
-    const { setToken, setImgPerfil } = useContext(UserContext);
+    const { setUserInformation, setImgPerfil } = useContext(UserContext);
     
     const ObjLogin = {
         email: infosLogin.email,
@@ -31,9 +31,9 @@ function Login() {
         const promise = axios.post(URL, ObjLogin);
 
         promise.then((response) => { 
-            setToken(response.data.token);
-            //localStorage.setItem('token', JSON.stringify({...response.data}));
-            setImgPerfil(response.data.image);
+            setUserInformation(response.data);
+            const user = JSON.stringify(response.data)
+            localStorage.setItem('token', user);
             setIsLoading(false);     
             navigate('/Hoje');
         });
