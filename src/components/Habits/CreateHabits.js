@@ -9,7 +9,7 @@ import styled from 'styled-components';
 
 function MyHabits() {
 
-    const [addHabit, setAddHabit] = useState({ name: '', days: [] });
+    const [addHabit, setAddHabit] = useState({ name: '' });
     const [addId, setAddId] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -19,13 +19,13 @@ function MyHabits() {
     const { token, setNewHabit, setHabitCreated } = useContext(UserContext);
 
     const days = [
+        { id: 0, day: "D" },
         { id: 1, day: "S" },
         { id: 2, day: "T" },
         { id: 3, day: "Q" },
         { id: 4, day: "Q" },
         { id: 5, day: "S" },
-        { id: 6, day: "S" },
-        { id: 7, day: "D" }
+        { id: 6, day: "S" }    
     ]
 
     const ObjMyHabits = {
@@ -44,6 +44,7 @@ function MyHabits() {
     function handleNewHabit(e) {
         e.preventDefault();
         setIsLoading(true);
+        console.log(ObjMyHabits)
 
         const promise = axios.post(URL, ObjMyHabits, config);
 
@@ -95,7 +96,7 @@ function MyHabits() {
                     {!isLoading ?
                         <>
                             <ButtonCancel onClick={() => setNewHabit(false)}>Cancelar</ButtonCancel>
-                            <ButtonConfirm onClick={handleNewHabit} disabled={addId > 0 ? false : true}>Salvar</ButtonConfirm>
+                            <ButtonConfirm onClick={handleNewHabit} disabled={addId.length > 0 ? false : true}>Salvar</ButtonConfirm>
                         </>
                         :
                         <>
@@ -122,8 +123,9 @@ function Day(props) {
 
     if (selected === false) {
         return <ButtonDay background={backgroundNotSelected} color={colorNotSelected} onClick={() => {
-            setSelected(true);
             setAddId([...addId, info.id])
+            setSelected(true);
+            console.log(addId)
         }
         }>{info.day}</ButtonDay>
 

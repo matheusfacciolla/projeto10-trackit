@@ -28,6 +28,7 @@ function Today() {
         const promise = axios.get(URL, config);
 
         promise.then((response) => {
+            console.log(response.data)
             const { data } = response;
             setTodayHabits(response.data);
             setProgress((data.filter((element) => element.done).length / data.length) * 100);

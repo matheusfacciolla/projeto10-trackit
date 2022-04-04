@@ -26,6 +26,7 @@ function ListHabits() {
 
         promise.then((response) => {
             setListHabits(response.data);
+            console.log(response.data)
         });
         promise.catch(error => {
             alert("Deu algum erro no cadastro...");
@@ -77,8 +78,8 @@ function Habit(props) {
 
     const navigate = useNavigate();
 
-    const dias = [1, 2, 3, 4, 5, 6, 7];
-    const mapping = { 1: 'S', 2: 'T', 3: 'Q', 4: 'Q', 5: 'S', 6: 'S', 7: 'D' }
+    const dias = [0, 1, 2, 3, 4, 5, 6];
+    const mapping = {0: 'D', 1: 'S', 2: 'T', 3: 'Q', 4: 'Q', 5: 'S', 6: 'S'}
 
     function deleteButtonHandler() {
         if (window.confirm("Você tem certeza?")) {
