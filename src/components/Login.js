@@ -155,6 +155,8 @@ const ContainerInputs = styled.div`
         line-height: 25px;
         color: #DBDBDB;
         padding-left: 14px;
+        box-shadow: 0 0 0 0;
+        outline: 0;
     }
 
     input::placeholder {

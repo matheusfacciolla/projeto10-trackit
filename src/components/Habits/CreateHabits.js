@@ -173,6 +173,8 @@ const ContainerInputs = styled.div`
         font-size: 19.976px;
         line-height: 25px;
         color: #DBDBDB;
+        box-shadow: 0 0 0 0;
+        outline: 0;
     }
 
     input::placeholder {
@@ -231,6 +233,7 @@ const ButtonConfirm = styled.button`
     color: #FFFFFF;
     margin-left: 23px;
     margin-right: 20px;
+    cursor: pointer;
 `;
 
 const ButtonCancel = styled.div`
@@ -244,4 +247,5 @@ const ButtonCancel = styled.div`
     font-size: 15.976px;
     line-height: 20px;
     color: #52B6FF;
+    cursor: pointer;
 `;

@@ -7,10 +7,11 @@ import Register from './Register';
 import Today from './Today';
 import MyHabits from './Habits/MyHabits';
 import Historic from './Historic';
+import GlobalStyle from '../assets/globalStyles';
 
 function App() {
-    const tokenStorage = JSON.parse(localStorage.getItem('token')); 
-    
+    const tokenStorage = JSON.parse(localStorage.getItem('token'));
+
     const [imgPerfil, setImgPerfil] = useState(null);
     const [newHabit, setNewHabit] = useState(false);
     const [habitCreated, setHabitCreated] = useState([]);
@@ -21,26 +22,29 @@ function App() {
 
     const contextValue = { imgPerfil, setImgPerfil, newHabit, setNewHabit, habitCreated, setHabitCreated, progress, setProgress, listHabits, setListHabits, att, setAtt, userInformation, setUserInformation };
 
-    
+
     useEffect(() => {
-        if(tokenStorage){
+        if (tokenStorage) {
             setUserInformation(tokenStorage);
-        } 
-    }, []); 
-    
+        }
+    }, []);
+
 
     return (
-        <UserContext.Provider value={contextValue}>
-            <BrowserRouter>
-                <Routes>
-                    <Route path='/' element={<Login />} />
-                    <Route path='/cadastro' element={<Register />} />
-                    <Route path='/Hoje' element={<Today />} />
-                    <Route path='/habitos' element={<MyHabits />} />
-                    <Route path='/historico' element={<Historic />} />
-                </Routes>         
-            </BrowserRouter>
-        </UserContext.Provider>
+        <>
+            <GlobalStyle />
+            <UserContext.Provider value={contextValue}>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path='/' element={<Login />} />
+                        <Route path='/cadastro' element={<Register />} />
+                        <Route path='/Hoje' element={<Today />} />
+                        <Route path='/habitos' element={<MyHabits />} />
+                        <Route path='/historico' element={<Historic />} />
+                    </Routes>
+                </BrowserRouter>
+            </UserContext.Provider>
+        </>
     );
 }
 
