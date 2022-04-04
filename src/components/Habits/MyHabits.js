@@ -43,7 +43,7 @@ const ContainerHabits = styled.div`
     margin-top: 70px;
     display: flex;
     flex-direction: column;
-    margin-bottom: 80px;
+    margin-bottom: 90px;
 `;
 
 const ContainerMyHabits = styled.div`

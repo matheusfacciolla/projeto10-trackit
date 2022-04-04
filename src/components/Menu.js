@@ -12,7 +12,7 @@ function Menu() {
             </Link>
             <ContainerProgressBar>
                 <Link to='/hoje'>
-                    <ProgressBar />
+                    <ProgressBar style={{ textDecoration: 'none'}}/>
                 </Link>
             </ContainerProgressBar>
             <Link to='/historico' style={{ textDecoration: 'none'}}>

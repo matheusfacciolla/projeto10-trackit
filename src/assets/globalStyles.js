@@ -135,11 +135,10 @@ table {
 }
 
 body {
-    background: #E5E5E5;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 90px;
+  background: #E5E5E5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 `;
  

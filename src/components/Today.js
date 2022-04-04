@@ -95,6 +95,7 @@ const ContainerContent = styled.div`
     width: 100%;
     height: 100%;
     background-color: #E5E5E5;
+    margin-bottom: 90px;
 `;
 
 const ContainerHabits = styled.div`

@@ -215,7 +215,8 @@ const ButtonDay = styled.div`
 const ButtonConfirmCancel = styled.div`
     margin-top: 30px;
     display: flex;
-    justify-content: end;
+    margin-left: 148px;
+
 `;
 
 const ButtonConfirm = styled.button`
